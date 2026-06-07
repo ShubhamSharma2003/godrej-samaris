@@ -755,7 +755,7 @@ document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>{
 // URL is safe to expose. KEY MUST be the PUBLIC "anon" key (Settings → API → Project API keys → anon public).
 // NEVER paste the service_role key here — it is secret and would expose your whole database.
 const SUPABASE_URL='https://enhnnatzvrrhvcgswdzn.supabase.co';
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndsYWltcG1panlvZ2N1aGFjcW52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTI0NTYsImV4cCI6MjA5MDM2ODQ1Nn0.HBRWv1ue_uCZPvDTX1-XWpZwJpyh7cY7_jFCvFWhBow';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVuaG5uYXR6dnJyaHZjZ3N3ZHpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MjE0OTUsImV4cCI6MjA4OTQ5NzQ5NX0.0VrlfP6a4bDpXU-8o1S5zCAog-t8zVSh9bVLt6D36O4';
 
 // form validation + submit
 const form=document.getElementById('leadForm');
@@ -781,7 +781,7 @@ form.addEventListener('submit',async e=>{
   submitBtn.textContent='Submitting…';
 
   try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/leads`,{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/luxe_property_leads`,{
       method:'POST',
       headers:{
         'apikey':SUPABASE_ANON_KEY,
@@ -790,10 +790,15 @@ form.addEventListener('submit',async e=>{
         'Prefer':'return=minimal'
       },
       body:JSON.stringify({
-        name, phone:phoneRaw, email, config,
-        source:'godrej-samaris.in',
-        page_url:location.href,
-        user_agent:navigator.userAgent
+        first_name:name,
+        last_name:null,
+        email:email||null,
+        phone_code:'+91',
+        phone:phone,
+        buyer_type:config||null,
+        budget:null,
+        visit_timing:null,
+        source:'godrej_samaris_enquiry_form'
       })
     });
     if(!res.ok)throw new Error('HTTP '+res.status+' '+await res.text());
