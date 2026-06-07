@@ -1,0 +1,9 @@
+# Secrets — never commit
+.env
+.env.*
+*.local
+supabase-setup.sql
+
+# OS / editor
+.DS_Store
+Thumbs.db
