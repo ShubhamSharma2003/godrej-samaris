@@ -1,0 +1,6 @@
+.env
+.env.*
+supabase-setup.sql
+.git
+.gitignore
+*.local
