@@ -295,6 +295,36 @@ section{position:relative}
   background:linear-gradient(transparent,rgba(8,24,19,.85));font-size:1rem;opacity:0;transform:translateY(10px);transition:.4s}
 .gal-grid figure:hover figcaption{opacity:1;transform:none}
 
+/* ============ FLOOR PLANS ============ */
+.fp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.fp-card{border:1px solid var(--line);background:#fff;border-radius:3px;overflow:hidden;box-shadow:var(--shadow)}
+.fp-head{display:flex;justify-content:space-between;align-items:baseline;padding:20px 24px;border-bottom:1px solid var(--line)}
+.fp-head h3{font-size:1.4rem;color:var(--forest)}
+.fp-head span{font-size:.78rem;color:#6a7a73;letter-spacing:.04em}
+.fp-frame{position:relative;background:var(--cream-2);min-height:280px;display:grid;place-items:center;overflow:hidden}
+.fp-frame img{width:100%;height:auto;display:block;transition:filter .5s ease;
+  -webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+.fp-frame.locked img{filter:blur(14px)}
+.fp-lock{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:16px;text-align:center;
+  padding:30px;background:rgba(12,33,27,.55);backdrop-filter:blur(2px);color:#fff;transition:.45s}
+.fp-frame.unlocked .fp-lock{opacity:0;visibility:hidden}
+.fp-lock .lockico{width:44px;height:44px;color:var(--gold-soft)}
+.fp-lock p{font-size:.92rem;color:rgba(255,255,255,.85);max-width:260px}
+.fp-note{text-align:center;margin-top:28px;color:#6a7a73;font-size:.82rem}
+
+/* unlock modal */
+.modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(8,24,19,.78);backdrop-filter:blur(6px)}
+.modal.open{display:flex}
+.modal-card{background:linear-gradient(135deg,var(--forest),var(--ink));border:1px solid var(--line);
+  border-radius:4px;box-shadow:var(--shadow);width:100%;max-width:440px;padding:38px;position:relative;color:#fff;
+  max-height:92vh;overflow-y:auto}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;color:rgba(255,255,255,.6);
+  font-size:1.8rem;cursor:pointer;line-height:1;transition:.2s}
+.modal-close:hover{color:var(--gold-soft)}
+.modal-card h3{font-size:1.5rem;color:#fff;margin-bottom:6px}
+.modal-card .fsub{color:var(--gold-soft);font-size:.85rem;margin-bottom:24px}
+
 /* ============ FORM ============ */
 .lead{background:linear-gradient(135deg,var(--forest),var(--ink));color:#fff;position:relative;overflow:hidden}
 .lead::before{content:"";position:absolute;top:-30%;right:-10%;width:600px;height:600px;border-radius:50%;
@@ -365,7 +395,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
 /* ============ RESPONSIVE ============ */
 @media(max-width:980px){
   .ov-grid,.loc-grid,.lead-grid{grid-template-columns:1fr;gap:40px}
-  .price-grid,.amen-grid{grid-template-columns:repeat(2,1fr)}
+  .price-grid,.amen-grid,.fp-grid{grid-template-columns:repeat(2,1fr)}
   .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
   .gal-grid figure:nth-child(1){grid-column:span 2}
   .gal-grid figure:nth-child(4){grid-column:span 2}
@@ -384,7 +414,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
   .hero-inner{padding-top:100px}
   .hero-stats{gap:26px}
   .hero-stats .st b{font-size:1.4rem}
-  .price-grid,.amen-grid,.gal-grid{grid-template-columns:1fr}
+  .price-grid,.amen-grid,.gal-grid,.fp-grid{grid-template-columns:1fr}
   .gal-grid figure{grid-column:span 1!important}
   .foot-top{grid-template-columns:1fr;gap:34px}
   .sticky-cta{display:flex}
@@ -402,6 +432,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
   <nav class="topnav" id="topnav">
     <a href="#overview">Overview</a>
     <a href="#pricing">Pricing</a>
+    <a href="#floorplans">Floor Plans</a>
     <a href="#amenities">Amenities</a>
     <a href="#location">Location</a>
     <a href="#why">Why Invest</a>
@@ -496,6 +527,42 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
       </article>
     </div>
     <p class="price-note">*Prices are indicative, exclusive of taxes &amp; statutory charges, and subject to change without prior notice. Spot-booking offers &amp; early-bird discounts available for a limited period.</p>
+  </div>
+</section>
+
+<!-- ============ FLOOR PLANS ============ -->
+<section class="sec" id="floorplans">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Floor Plans</span>
+      <h2>Explore the layouts</h2>
+      <p>Detailed 3 &amp; 4 BHK floor plans with room dimensions. Unlock instant access — no cost, no obligation.</p>
+    </div>
+    <div class="fp-grid">
+      <article class="fp-card reveal">
+        <div class="fp-head"><h3>3 BHK + Study</h3><span>3050 sq.ft.</span></div>
+        <div class="fp-frame locked" data-fp>
+          <img src="Layout1.jpeg" alt="Godrej Samaris 3 BHK floor plan" oncontextmenu="return false" draggable="false" />
+          <div class="fp-lock">
+            <svg class="lockico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+            <p>Fill a quick form to view the full 3 BHK floor plan.</p>
+            <button class="btn btn-gold" type="button" data-unlock>Unlock Floor Plan</button>
+          </div>
+        </div>
+      </article>
+      <article class="fp-card reveal">
+        <div class="fp-head"><h3>4 BHK + Study</h3><span>3750 sq.ft.</span></div>
+        <div class="fp-frame locked" data-fp>
+          <img src="Layout2.jpeg" alt="Godrej Samaris 4 BHK floor plan" oncontextmenu="return false" draggable="false" />
+          <div class="fp-lock">
+            <svg class="lockico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+            <p>Fill a quick form to view the full 4 BHK floor plan.</p>
+            <button class="btn btn-gold" type="button" data-unlock>Unlock Floor Plan</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="fp-note">*Floor plans are indicative and subject to change. Not to scale.</p>
   </div>
 </section>
 
@@ -713,7 +780,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
         <h5>Site Address</h5>
         <p>Sector 53, Gurugram,<br/>Haryana 122022</p>
         <h5 style="margin-top:22px">Contact</h5>
-        <a href="tel:+912248963298">+91 22 4896 3298</a>
+        <a href="tel:+918010303303">+91 8010-303-303</a>
         <a href="#enquire" class="btn btn-gold" style="margin-top:10px;padding:11px 22px">Enquire Now</a>
       </div>
     </div>
@@ -729,8 +796,51 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:70px 0 0;font-si
 
 <!-- ============ STICKY MOBILE CTA ============ -->
 <div class="sticky-cta">
-  <a href="tel:+912248963298" class="call">Call Now</a>
+  <a href="tel:+918010303303" class="call">Call Now</a>
   <a href="#enquire" class="enq">Enquire Now</a>
+</div>
+
+<!-- ============ FLOOR PLAN UNLOCK MODAL ============ -->
+<div class="modal" id="fpModal" aria-hidden="true">
+  <div class="modal-card">
+    <button class="modal-close" id="fpClose" type="button" aria-label="Close">&times;</button>
+    <form id="fpForm" novalidate>
+      <h3>Unlock Floor Plans</h3>
+      <div class="fsub">Get both 3 &amp; 4 BHK layouts instantly</div>
+
+      <div class="field" id="fp-name">
+        <label for="fpName">Full Name</label>
+        <input type="text" id="fpName" placeholder="Your name" autocomplete="name" />
+        <div class="errmsg">Enter your name (letters only).</div>
+      </div>
+
+      <div class="field" id="fp-phone">
+        <label for="fpPhone">Mobile Number</label>
+        <input type="tel" id="fpPhone" placeholder="98765 43210" autocomplete="tel" maxlength="14" />
+        <div class="errmsg">Enter a valid 10-digit mobile starting with 6/7/8/9.</div>
+      </div>
+
+      <div class="field" id="fp-email">
+        <label for="fpEmail">Email Address</label>
+        <input type="email" id="fpEmail" placeholder="you@email.com" autocomplete="email" />
+        <div class="errmsg">Enter a valid email address.</div>
+      </div>
+
+      <div class="field" id="fp-config">
+        <label for="fpConfig">Configuration of Interest</label>
+        <select id="fpConfig">
+          <option value="">Select configuration</option>
+          <option>3 BHK + Study (3050 sq.ft.)</option>
+          <option>4 BHK + Study (3750 sq.ft.)</option>
+          <option>Not sure yet</option>
+        </select>
+        <div class="errmsg">Please choose a configuration.</div>
+      </div>
+
+      <button type="submit" class="btn btn-gold" style="width:100%;padding:16px;margin-top:8px">View Floor Plans</button>
+      <p class="form-note">By submitting, you authorise Godrej Samaris &amp; its authorised marketing partner to contact you via call, SMS, email or WhatsApp. Your details are kept confidential.</p>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -811,9 +921,79 @@ form.addEventListener('submit',async e=>{
     console.error('Lead submit failed:',err);
     submitBtn.disabled=false;
     submitBtn.textContent=original;
-    alert('Sorry, something went wrong. Please call us at +91 22 4896 3298 or try again.');
+    alert('Sorry, something went wrong. Please call us at +91 8010-303-303 or try again.');
   }
 });
+
+// ===== Floor plan unlock =====
+(function(){
+  const KEY='fp_unlocked';
+  const modal=document.getElementById('fpModal');
+  const fpForm=document.getElementById('fpForm');
+  const frames=document.querySelectorAll('[data-fp]');
+  const fpBtn=fpForm.querySelector('button[type=submit]');
+  const unlockAll=()=>frames.forEach(f=>{f.classList.remove('locked');f.classList.add('unlocked')});
+
+  if(localStorage.getItem(KEY)==='1')unlockAll();
+
+  const openModal=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false')};
+  const closeModal=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true')};
+  document.querySelectorAll('[data-unlock]').forEach(b=>b.addEventListener('click',openModal));
+  document.getElementById('fpClose').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal()});
+
+  const fpErr=(id,bad)=>{document.getElementById(id).classList.toggle('err',bad);return!bad};
+
+  fpForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=document.getElementById('fpName').value.trim();
+    const phone=document.getElementById('fpPhone').value.trim().replace(/\D/g,'');
+    const email=document.getElementById('fpEmail').value.trim();
+    const config=document.getElementById('fpConfig').value;
+    let ok=true;
+    ok&=fpErr('fp-name',!/^[A-Za-z][A-Za-z\s.]{1,}$/.test(name));
+    ok&=fpErr('fp-phone',!/^[6789]\d{9}$/.test(phone));
+    ok&=fpErr('fp-email',!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email));
+    ok&=fpErr('fp-config',config==='');
+    if(!ok)return;
+
+    fpBtn.disabled=true;
+    const o=fpBtn.textContent;
+    fpBtn.textContent='Unlocking…';
+    try{
+      const res=await fetch(`${SUPABASE_URL}/rest/v1/luxe_property_leads`,{
+        method:'POST',
+        headers:{
+          'apikey':SUPABASE_ANON_KEY,
+          'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type':'application/json',
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify({
+          first_name:name,
+          last_name:null,
+          email:email,
+          phone_code:'+91',
+          phone:phone,
+          buyer_type:config,
+          budget:null,
+          visit_timing:null,
+          source:'floor_plan_unlock'
+        })
+      });
+      if(!res.ok)throw new Error('HTTP '+res.status+' '+await res.text());
+      localStorage.setItem(KEY,'1');
+      unlockAll();
+      closeModal();
+    }catch(err){
+      console.error('Floor plan unlock failed:',err);
+      fpBtn.disabled=false;
+      fpBtn.textContent=o;
+      alert('Sorry, something went wrong. Please call us at +91 8010-303-303 or try again.');
+    }
+  });
+})();
 </script>
 </body>
 </html>
